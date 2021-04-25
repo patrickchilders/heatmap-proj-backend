@@ -1,22 +1,26 @@
 var express = require('express');
 var router = express.Router();
 
-var geoIpData = [];
+var getGeoIpData = require('../models/geoip');
 
-var getGeoIpData = require('../models/geoip').then((data) => {
-    geoIpData = data;
+
+
+router.get('/', async (req, res, next) => {
+    let geoIpData = await getGeoIpData;
+    res.send(geoIpData);
+    
 });
 
-router.get('/', function(req, res, next) {
-    if(geoIpData.length == 0){
-      res.send("loading");
-    } else {
-      res.send(geoIpData);
-    }
-});
+router.get('/boundingBox', async (req,res,next) => {
+  let geoIpData = await getGeoIpData;
+    let points = [];
+    req.query.bounds.forEach((bound) => {
+      let lat, long = bound.split(",");
+      points.push({lat,long});
+    })
+    res.send(geoIpData.filter((geoIp) => {
 
-router.get('/boundingBox', function(req,res,next) {
-  res.send(req.query.bounds);
+    }));
 });
 
 module.exports = router;
