@@ -3,8 +3,6 @@ var router = express.Router();
 
 var getGeoIpData = require('../models/geoip');
 
-
-
 router.get('/', async (req, res, next) => {
     let geoIpData = await getGeoIpData;
     res.send(geoIpData);
