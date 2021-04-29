@@ -1,10 +1,10 @@
 # heatmap-proj-backend
 Heatmap mini-portfolio project backend made with express.js
 
-## Impleneted Routes
+## Implemented Routes
 
 ### GET /geoip
-Returns all latitude/longitude pairs in the datsource CSV file.
+Returns all latitude/longitude pairs in the data source CSV file.
 
 ### GET /geoip/boundingBox
 Accepts a bounds[] denoting the four corners of the bounding box.
@@ -50,3 +50,5 @@ Bounding Box coordinates must be specified in the following order:
   south-western-most point,
   south-eastern-most point
   
+
+
