@@ -20,9 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
+app.use(cors()); // only enabling cors blindly because this demo/sample project is entirely outward-facing
 
-app.use('/', indexRouter);
+// the index route could be removed, but that's not particularly important for this demo/sample project, given how it's structured.
+app.use('/', indexRouter);      
 app.use('/geoip', geoipRouter);
 
 // catch 404 and forward to error handler

@@ -57,7 +57,7 @@ describe('geoip', function() {
         });
     });
     describe('/GET geoip/boundingBox', function() {
-        it('should GET all the geoip coordinates within a bounding box that does not wrap the 180th prime meridian', function(done) {
+        it('should GET all the geoip coordinates within a bounding box that does not wrap the 180th meridian', function(done) {
             chai.request(server)
             .get('/geoip/boundingBox')
             .query({"bounds[]":nonWrappingBoundingBoxTest["bounds"]})
@@ -70,7 +70,7 @@ describe('geoip', function() {
                 done();
             });
         });
-        it('should GET all the geoip coordinates within a bounding box that wraps the 180th prime meridian', function(done) {
+        it('should GET all the geoip coordinates within a bounding box that wraps the 180th meridian', function(done) {
             chai.request(server)
             .get('/geoip/boundingBox')
             .query({"bounds[]":wrappingBoundingBoxTest["bounds"]})

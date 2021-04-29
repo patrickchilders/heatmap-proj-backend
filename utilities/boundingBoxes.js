@@ -1,25 +1,14 @@
-/*
-for a given set of four points, does the defined bounding box straddle the 180th meridian?
-it is ambiguous, unless points are ordered.
-so we will assume the points go [top left, top right, bottom left, bottom right]
-this whole module will parseFloat soon as it takes it in
-*/
-
 function doBoundsWrap(bounds){
-    // if top-left is east of top-right
-    // if bounds[0] has x property > of bounds[1] x property
-    // lat,long is y,x, so bounds[0][1] is top-left.x and bounds[1][1] is top-right.x
+    // do the provided set of bounding box coordinates wrap the 180th meridian?
     return bounds[0][1] > bounds[1][1];
 }
 
 function splitBoundsOnMeridian(bounds){
-    // already established that bounds wraps the 180th meridian
-    // create two new arrays to return
+    // use the 180th meridian to cut the bounding box in two
+    // allowing logic for a bounding box to always assume a bounding box does not cross the 180th meridian
     let westernBound = [];
     let easternBound = [];
 
-    //first add the western bound's top-left lat,long
-    //this will have a matching latitude to other top points, and -180 degree longitude
     westernBound.push([bounds[0][0],-180]);
     westernBound.push(bounds[1]);
     westernBound.push([bounds[2][0],-180]);
@@ -34,9 +23,8 @@ function splitBoundsOnMeridian(bounds){
             "easternBound": easternBound};
 }
 
-// bounds is taken in as [["lat","long"],[...]]
-// point is taken in as ["lat","long"]
 function isPointWithinBoundingBox(bounds, point){
+    // if the bounding box wrap the 180th meridian, split it in two and re-call this function on each half
     if(doBoundsWrap(bounds)){
         let {easternBound, westernBound} = splitBoundsOnMeridian(bounds);
         return isPointWithinBoundingBox(easternBound, point) || isPointWithinBoundingBox(westernBound, point);
