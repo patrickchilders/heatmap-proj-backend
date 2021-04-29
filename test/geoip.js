@@ -37,6 +37,7 @@ let wrappingBoundingBoxTest = {
 
 
 describe('geoip', function() {
+    this.timeout(0);
     describe('load data', function() {
         it("should load the CSV geoip data", function() {
             return expect(require('../models/geoip').then(function(data){ geoIpData = data; return data; })).to.eventually.not.have.lengthOf(0);
